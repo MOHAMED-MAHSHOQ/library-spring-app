@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="04" author="capestart">
+        <insert tableName="books">
+            <column name="title" value="Introduction to Algorithms"/>
+            <column name="author" value="Thomas Cormen"/>
+            <column name="genre" value="Computer Science"/>
+            <column name="isbn" value="ISBN-001"/>
+            <column name="student_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="The Science of Everything"/>
+            <column name="author" value="James Trefil"/>
+            <column name="genre" value="Science"/>
+            <column name="isbn" value="ISBN-002"/>
+            <column name="student_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Calculus Made Easy"/>
+            <column name="author" value="Silvanus Thompson"/>
+            <column name="genre" value="Mathematics"/>
+            <column name="isbn" value="ISBN-003"/>
+            <column name="student_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Concepts of Physics"/>
+            <column name="author" value="H.C. Verma"/>
+            <column name="genre" value="Physics"/>
+            <column name="isbn" value="ISBN-004"/>
+            <column name="student_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Clean Code"/>
+            <column name="author" value="Robert C. Martin"/>
+            <column name="genre" value="Computer Science"/>
+            <column name="isbn" value="ISBN-005"/>
+            <column name="student_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Organic Chemistry"/>
+            <column name="author" value="Paula Bruice"/>
+            <column name="genre" value="Chemistry"/>
+            <column name="isbn" value="ISBN-006"/>
+            <column name="student_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Biology: The Unity of Life"/>
+            <column name="author" value="Joseph Levine"/>
+            <column name="genre" value="Biology"/>
+            <column name="isbn" value="ISBN-007"/>
+            <column name="student_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="The Story of Mathematics"/>
+            <column name="author" value="Anne Rooney"/>
+            <column name="genre" value="Mathematics"/>
+            <column name="isbn" value="ISBN-008"/>
+            <column name="student_id" valueNumeric="null"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Design Patterns"/>
+            <column name="author" value="Gang of Four"/>
+            <column name="genre" value="Computer Science"/>
+            <column name="isbn" value="ISBN-009"/>
+            <column name="student_id" valueNumeric="null"/>
+        </insert>
+        <insert tableName="books">
+            <column name="title" value="Quantum Physics for Beginners"/>
+            <column name="author" value="Carl Lux"/>
+            <column name="genre" value="Physics"/>
+            <column name="isbn" value="ISBN-010"/>
+            <column name="student_id" valueNumeric="null"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="03" author="capestart">
+        <insert tableName="students">
+            <column name="name" value="Mahshoq Ahmed"/>
+            <column name="email" value="mahshoq@capestart.com"/>
+            <column name="phone" value="9876543210"/>
+            <column name="department" value="Computer Science"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Gokul Karunakaran"/>
+            <column name="email" value="gokul@capestart.com"/>
+            <column name="phone" value="9876543211"/>
+            <column name="department" value="Mathematics"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Mr.Golden Bright"/>
+            <column name="email" value="golden@capestart.com"/>
+            <column name="phone" value="9876543212"/>
+            <column name="department" value="Physics"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Ananya Singh"/>
+            <column name="email" value="ananya@capestart.com"/>
+            <column name="phone" value="9876543213"/>
+            <column name="department" value="Chemistry"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Karthik Raja"/>
+            <column name="email" value="karthik@capestart.com"/>
+            <column name="phone" value="9876543214"/>
+            <column name="department" value="Computer Science"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Deepika Nair"/>
+            <column name="email" value="deepika@capestart.com"/>
+            <column name="phone" value="9876543215"/>
+            <column name="department" value="Biology"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Arjun Patel"/>
+            <column name="email" value="arjun@capestart.com"/>
+            <column name="phone" value="9876543216"/>
+            <column name="department" value="Mathematics"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Sneha Reddy"/>
+            <column name="email" value="sneha@capestart.com"/>
+            <column name="phone" value="9876543217"/>
+            <column name="department" value="Physics"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Mohamed Faiz"/>
+            <column name="email" value="faiz@capestart.com"/>
+            <column name="phone" value="9876543218"/>
+            <column name="department" value="Computer Science"/>
+        </insert>
+        <insert tableName="students">
+            <column name="name" value="Lakshmi Venkat"/>
+            <column name="email" value="lakshmi@capestart.com"/>
+            <column name="phone" value="9876543219"/>
+            <column name="department" value="Chemistry"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
