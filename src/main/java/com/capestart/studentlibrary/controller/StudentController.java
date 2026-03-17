@@ -1,0 +1,69 @@
+package com.capestart.studentlibrary.controller;
+
+import com.capestart.studentlibrary.dto.request.StudentRequestDto;
+import com.capestart.studentlibrary.dto.response.StudentResponseDto;
+import com.capestart.studentlibrary.service.StudentService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/students")
+@RequiredArgsConstructor
+public class StudentController {
+
+    private final StudentService studentService;
+
+    @PostMapping
+    public ResponseEntity<StudentResponseDto> createStudent(
+            @Valid @RequestBody StudentRequestDto requestDto) {
+        StudentResponseDto response = studentService.createStudent(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StudentResponseDto>> getAllStudents() {
+        List<StudentResponseDto> response = studentService.getAllStudents();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponseDto> getStudentById(@PathVariable Long id) {
+        StudentResponseDto response = studentService.getStudentById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentResponseDto> updateStudent(
+            @PathVariable Long id,
+            @Valid @RequestBody StudentRequestDto requestDto) {
+        StudentResponseDto response = studentService.updateStudent(id, requestDto);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{studentId}/books/{bookId}")
+    public ResponseEntity<StudentResponseDto> assignBookToStudent(
+            @PathVariable Long studentId,
+            @PathVariable Long bookId) {
+        StudentResponseDto response = studentService.assignBookToStudent(studentId, bookId);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{studentId}/books/{bookId}")
+    public ResponseEntity<StudentResponseDto> removeBookFromStudent(
+            @PathVariable Long studentId,
+            @PathVariable Long bookId) {
+        StudentResponseDto response = studentService.removeBookFromStudent(studentId, bookId);
+        return ResponseEntity.ok(response);
+    }
+}
