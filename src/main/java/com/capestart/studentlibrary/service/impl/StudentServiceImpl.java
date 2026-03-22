@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
             );
         }
         Student student = studentMapper.toEntity(requestDto);
-        Student savedStudent = studentRepository.saveAndFlush(student);
+        Student savedStudent = studentRepository.save(student);
         return studentMapper.toResponseDto(savedStudent);
     }
 

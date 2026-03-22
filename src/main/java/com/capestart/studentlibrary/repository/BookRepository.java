@@ -13,9 +13,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findByStudentIsNull();
 
-    List<Book> findByStudentId(Long studentId);
-
-    Optional<Book> findByIsbn(String isbn);
+//    List<Book> findByStudentId(Long studentId);
+//
+//    Optional<Book> findByIsbn(String isbn);
 
     boolean existsByIsbn(String isbn);
 
