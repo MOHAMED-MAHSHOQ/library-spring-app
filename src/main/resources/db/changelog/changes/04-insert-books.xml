@@ -60,21 +60,21 @@
             <column name="author" value="Anne Rooney"/>
             <column name="genre" value="Mathematics"/>
             <column name="isbn" value="ISBN-008"/>
-            <column name="student_id" valueNumeric="null"/>
+            <column name="student_id" />
         </insert>
         <insert tableName="books">
             <column name="title" value="Design Patterns"/>
             <column name="author" value="Gang of Four"/>
             <column name="genre" value="Computer Science"/>
             <column name="isbn" value="ISBN-009"/>
-            <column name="student_id" valueNumeric="null"/>
+            <column name="student_id" />
         </insert>
         <insert tableName="books">
             <column name="title" value="Quantum Physics for Beginners"/>
             <column name="author" value="Carl Lux"/>
             <column name="genre" value="Physics"/>
             <column name="isbn" value="ISBN-010"/>
-            <column name="student_id" valueNumeric="null"/>
+            <column name="student_id" />
         </insert>
     </changeSet>
 
