@@ -66,8 +66,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Long id) {
         Student student = findStudentById(id);
-        student.getBooks().forEach(book -> book.setStudent(null));
-        bookRepository.saveAll(student.getBooks());
+
+        List<Book> assignedBooks = bookRepository.findByStudentIdOrderByIdAsc(id);
+        assignedBooks.forEach(book -> book.setStudent(null));
+
+        bookRepository.saveAll(assignedBooks);
         studentRepository.delete(student);
     }
 

@@ -28,7 +28,7 @@ public class Book {
     @Column(name = "isbn", nullable = false, unique = true, length = 50)
     private String isbn;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 }

@@ -11,14 +11,16 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
+    @Query("SELECT b FROM Book b WHERE b.student IS NULL ORDER BY b.id ASC")
     List<Book> findByStudentIsNull();
-
-//    List<Book> findByStudentId(Long studentId);
-//
-//    Optional<Book> findByIsbn(String isbn);
 
     boolean existsByIsbn(String isbn);
 
     @Query("SELECT b FROM Book b WHERE b.student.id = :studentId AND b.id = :bookId")
     Optional<Book> findByStudentIdAndBookId(Long studentId, Long bookId);
+
+    @Query("SELECT b FROM Book b ORDER BY b.id ASC")
+    List<Book> findAllOrderById();
+
+    List<Book> findByStudentIdOrderByIdAsc(Long studentId);
 }

@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookResponseDto> getAllBooks() {
-        return bookRepository.findAll()
+        return bookRepository.findAllOrderById()
                 .stream()
                 .map(bookMapper::toResponseDto)
                 .toList();
@@ -63,6 +63,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long id) {
         Book book = findBookById(id);
+        if(book.getStudent() != null) {
+            throw new IllegalStateException(
+                    "Cannot delete book with id " + id + " because it is assigned to a student"
+            );
+        }
         bookRepository.delete(book);
     }
 

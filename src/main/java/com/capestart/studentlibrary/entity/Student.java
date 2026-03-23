@@ -31,7 +31,7 @@ public class Student {
     @Column(name = "department", nullable = false, length = 100)
     private String department;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student")
     @Builder.Default
     private List<Book> books = new ArrayList<>();
 }
