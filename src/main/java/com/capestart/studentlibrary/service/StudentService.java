@@ -1,13 +1,17 @@
 package com.capestart.studentlibrary.service;
 
 import com.capestart.studentlibrary.dto.request.StudentRequestDto;
+import com.capestart.studentlibrary.dto.response.PageResponseDto;
 import com.capestart.studentlibrary.dto.response.StudentResponseDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface StudentService {
 
     StudentResponseDto createStudent(StudentRequestDto requestDto);
+
+    PageResponseDto<StudentResponseDto> getAllStudentsPaged(Pageable pageable);
 
     List<StudentResponseDto> getAllStudents();
 

@@ -2,12 +2,14 @@ package com.capestart.studentlibrary.service.impl;
 
 import com.capestart.studentlibrary.dto.request.BookRequestDto;
 import com.capestart.studentlibrary.dto.response.BookResponseDto;
+import com.capestart.studentlibrary.dto.response.PageResponseDto;
 import com.capestart.studentlibrary.entity.Book;
 import com.capestart.studentlibrary.mapper.BookMapper;
 import com.capestart.studentlibrary.repository.BookRepository;
 import com.capestart.studentlibrary.service.BookService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,22 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+
+    @Override
+    public PageResponseDto<BookResponseDto> getAllBooksPaged(Pageable pageable) {
+        var page = bookRepository.findAll(pageable);
+        return PageResponseDto.<BookResponseDto>builder()
+                .content(page.getContent().stream()
+                        .map(bookMapper::toResponseDto)
+                        .toList())
+                .page(page.getNumber())
+                .size(page.getSize())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast())
+                .build();
+    }
 
     @Override
     public BookResponseDto createBook(BookRequestDto requestDto) {

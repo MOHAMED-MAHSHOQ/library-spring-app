@@ -8,8 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -25,10 +26,26 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<StudentResponseDto>> getAllStudents() {
+//        List<StudentResponseDto> response = studentService.getAllStudents();
+//        return ResponseEntity.ok(response);
+//    }
+
     @GetMapping
-    public ResponseEntity<List<StudentResponseDto>> getAllStudents() {
-        List<StudentResponseDto> response = studentService.getAllStudents();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> getAllStudents(
+            @RequestParam(defaultValue = "0")    int page,
+            @RequestParam(defaultValue = "20")   int size,
+            @RequestParam(defaultValue = "id")   String sortBy,
+            @RequestParam(defaultValue = "asc")  String sortDir) {
+
+        // if no search, return paged
+        Sort sort = sortDir.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(studentService.getAllStudentsPaged(pageable));
     }
 
     @GetMapping("/{id}")

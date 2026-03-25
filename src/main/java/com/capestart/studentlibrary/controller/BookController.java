@@ -5,6 +5,9 @@ import com.capestart.studentlibrary.dto.response.BookResponseDto;
 import com.capestart.studentlibrary.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +28,25 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<BookResponseDto>> getAllBooks() {
+//        List<BookResponseDto> response = bookService.getAllBooks();
+//        return ResponseEntity.ok(response);
+//    }
+
     @GetMapping
-    public ResponseEntity<List<BookResponseDto>> getAllBooks() {
-        List<BookResponseDto> response = bookService.getAllBooks();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> getAllBooks(
+            @RequestParam(defaultValue = "0")   int page,
+            @RequestParam(defaultValue = "20")  int size,
+            @RequestParam(defaultValue = "id")  String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+
+        Sort sort = sortDir.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(bookService.getAllBooksPaged(pageable));
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 package com.capestart.studentlibrary.service.impl;
 
 import com.capestart.studentlibrary.dto.request.StudentRequestDto;
+import com.capestart.studentlibrary.dto.response.PageResponseDto;
 import com.capestart.studentlibrary.dto.response.StudentResponseDto;
 import com.capestart.studentlibrary.entity.Book;
 import com.capestart.studentlibrary.entity.Student;
@@ -10,6 +11,7 @@ import com.capestart.studentlibrary.repository.StudentRepository;
 import com.capestart.studentlibrary.service.StudentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,26 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final BookRepository bookRepository;
     private final StudentMapper studentMapper;
+
+    @Override
+    public PageResponseDto<StudentResponseDto> getAllStudentsPaged(Pageable pageable) {
+        var page = studentRepository.findAll(pageable);
+        // Spring Data automatically generates:
+        // SELECT * FROM students ORDER BY ? LIMIT ? OFFSET ?
+
+        return PageResponseDto.<StudentResponseDto>builder()
+                .content(page.getContent().stream()
+                        .map(studentMapper::toResponseDto)
+                        .toList())
+                .page(page.getNumber())
+                .size(page.getSize())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast())
+                .build();
+    }
+
 
     @Override
     public StudentResponseDto createStudent(StudentRequestDto requestDto) {
