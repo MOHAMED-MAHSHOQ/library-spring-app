@@ -3,10 +3,12 @@ package com.capestart.studentlibrary.repository;
 import com.capestart.studentlibrary.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
@@ -23,4 +25,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllOrderById();
 
     List<Book> findByStudentIdOrderByIdAsc(Long studentId);
+
+    @Query("SELECT b.isbn FROM Book b WHERE b.isbn IN :isbns")
+    Set<String> findExistingIsbns(@Param("isbns") Set<String> isbns);
 }

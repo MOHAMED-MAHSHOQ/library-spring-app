@@ -28,8 +28,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public PageResponseDto<StudentResponseDto> getAllStudentsPaged(Pageable pageable) {
         var page = studentRepository.findAll(pageable);
-        // Spring Data automatically generates:
-        // SELECT * FROM students ORDER BY ? LIMIT ? OFFSET ?
 
         return PageResponseDto.<StudentResponseDto>builder()
                 .content(page.getContent().stream()
