@@ -9,5 +9,6 @@
     <include file="db/changelog/changes/02-create-book-table.xml"/>
     <include file="db/changelog/changes/03-insert-students.xml"/>
     <include file="db/changelog/changes/04-insert-books.xml"/>
+    <include file="db/changelog/changes/05-create-app-users-table.xml"/>
 
 </databaseChangeLog>

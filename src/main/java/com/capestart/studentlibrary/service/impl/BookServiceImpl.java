@@ -9,7 +9,10 @@ import com.capestart.studentlibrary.repository.BookRepository;
 import com.capestart.studentlibrary.service.BookService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +24,32 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+
+    // ADD THIS TO BookServiceImpl.java
+    @Override
+    public PageResponseDto<BookResponseDto> searchBooks(String query, int page, int size) {
+        // 1. Create pagination request
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+
+        // 2. Fetch from database using our new repository query
+        Page<Book> bookPage = bookRepository.searchBooks(query, pageable);
+
+        // 3. Map entities to DTOs
+        List<BookResponseDto> content = bookPage.getContent().stream()
+                .map(bookMapper::toResponseDto)
+                .toList();
+
+        // 4. Return formatted response for React
+        return PageResponseDto.<BookResponseDto>builder()
+                .content(content)
+                .page(bookPage.getNumber())
+                .size(bookPage.getSize())
+                .totalElements(bookPage.getTotalElements())
+                .totalPages(bookPage.getTotalPages())
+                .first(bookPage.isFirst())
+                .last(bookPage.isLast())
+                .build();
+    }
 
     @Override
     public PageResponseDto<BookResponseDto> getAllBooksPaged(Pageable pageable) {

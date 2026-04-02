@@ -22,4 +22,6 @@ public interface BookService {
     void deleteBook(Long id);
 
     List<BookResponseDto> getUnassignedBooks();
+
+    PageResponseDto<BookResponseDto> searchBooks(String query, int page, int size);
 }

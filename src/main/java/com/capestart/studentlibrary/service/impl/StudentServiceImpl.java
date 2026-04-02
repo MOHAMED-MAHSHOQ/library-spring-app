@@ -11,7 +11,9 @@ import com.capestart.studentlibrary.repository.StudentRepository;
 import com.capestart.studentlibrary.service.StudentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,23 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final BookRepository bookRepository;
     private final StudentMapper studentMapper;
+
+    @Override
+    public PageResponseDto<StudentResponseDto> searchStudents(String query, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        var result = studentRepository.searchByNameOrDepartmentOrEmail(query, pageable);
+        return PageResponseDto.<StudentResponseDto>builder()
+                .content(result.getContent().stream()
+                        .map(studentMapper::toResponseDto)
+                        .toList())
+                .page(result.getNumber())
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .first(result.isFirst())
+                .last(result.isLast())
+                .build();
+    }
 
     @Override
     public PageResponseDto<StudentResponseDto> getAllStudentsPaged(Pageable pageable) {

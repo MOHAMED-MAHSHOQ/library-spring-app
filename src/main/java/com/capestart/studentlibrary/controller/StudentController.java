@@ -26,11 +26,6 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<StudentResponseDto>> getAllStudents() {
-//        List<StudentResponseDto> response = studentService.getAllStudents();
-//        return ResponseEntity.ok(response);
-//    }
 
     @GetMapping
     public ResponseEntity<?> getAllStudents(
@@ -82,5 +77,13 @@ public class StudentController {
             @PathVariable Long bookId) {
         StudentResponseDto response = studentService.removeBookFromStudent(studentId, bookId);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchStudents(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0")   int page,
+            @RequestParam(defaultValue = "20")  int size) {
+        return ResponseEntity.ok(studentService.searchStudents(query, page, size));
     }
 }

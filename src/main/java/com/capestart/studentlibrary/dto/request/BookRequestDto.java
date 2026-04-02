@@ -29,6 +29,6 @@ public class BookRequestDto {
     private String genre;
 
     @NotBlank(message = "ISBN is required")
-    @Pattern(regexp = "^ISBN-[0-9]{3}$", message = "ISBN format must be like ISBN-001")
+    @Pattern(regexp = "^ISBN-[0-9]{3,}$", message = "ISBN format must be like ISBN-001")
     private String isbn;
 }

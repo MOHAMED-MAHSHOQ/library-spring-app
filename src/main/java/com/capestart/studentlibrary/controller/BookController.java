@@ -74,4 +74,12 @@ public class BookController {
         List<BookResponseDto> response = bookService.getUnassignedBooks();
         return ResponseEntity.ok(response);
     }
+    // ADD THIS NEW SEARCH ENDPOINT
+    @GetMapping("/search")
+    public ResponseEntity<?> searchBooks(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0")   int page,
+            @RequestParam(defaultValue = "20")  int size) {
+        return ResponseEntity.ok(bookService.searchBooks(query, page, size));
+    }
 }

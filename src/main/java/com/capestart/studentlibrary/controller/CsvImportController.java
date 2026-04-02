@@ -1,7 +1,8 @@
 package com.capestart.studentlibrary.controller;
 
 import com.capestart.studentlibrary.dto.response.ImportResultDto;
-import com.capestart.studentlibrary.service.CsvImportService;
+import com.capestart.studentlibrary.service.BookImportService;
+import com.capestart.studentlibrary.service.StudentImportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/import")
 @RequiredArgsConstructor
 public class CsvImportController {
-
-    private final CsvImportService csvImportService;
+    private final StudentImportService studentImportService;
+    private final BookImportService bookImportService;
 
     @PostMapping("/students")
     public ResponseEntity<ImportResultDto> importStudents(
@@ -26,7 +27,7 @@ public class CsvImportController {
             return ResponseEntity.badRequest().build();
         }
 
-        ImportResultDto result = csvImportService.importStudents(file);
+        ImportResultDto result = studentImportService.importStudents(file);
         return ResponseEntity.ok(result);
     }
 
@@ -42,7 +43,7 @@ public class CsvImportController {
             return ResponseEntity.badRequest().build();
         }
 
-        ImportResultDto result = csvImportService.importBooks(file);
+        ImportResultDto result = bookImportService.importBooks(file);
         return ResponseEntity.ok(result);
     }
 }

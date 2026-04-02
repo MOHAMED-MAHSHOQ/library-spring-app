@@ -13,6 +13,8 @@ public interface StudentService {
 
     PageResponseDto<StudentResponseDto> getAllStudentsPaged(Pageable pageable);
 
+    PageResponseDto<StudentResponseDto> searchStudents(String query, int page, int size);
+
     List<StudentResponseDto> getAllStudents();
 
     StudentResponseDto getStudentById(Long id);
