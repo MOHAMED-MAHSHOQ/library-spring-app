@@ -33,8 +33,6 @@ public class StudentController {
             @RequestParam(defaultValue = "20")   int size,
             @RequestParam(defaultValue = "id")   String sortBy,
             @RequestParam(defaultValue = "asc")  String sortDir) {
-
-        // if no search, return paged
         Sort sort = sortDir.equalsIgnoreCase("desc")
                 ? Sort.by(sortBy).descending()
                 : Sort.by(sortBy).ascending();

@@ -31,7 +31,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT b.isbn FROM Book b WHERE b.isbn IN :isbns")
     Set<String> findExistingIsbns(@Param("isbns") Set<String> isbns);
 
-    // ADD THIS TO BookRepository.java
     @Query("SELECT b FROM Book b WHERE " +
             "LOWER(b.title) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(b.author) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
