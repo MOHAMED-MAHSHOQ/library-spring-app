@@ -5,12 +5,14 @@ import com.capestart.studentlibrary.service.BookImportService;
 import com.capestart.studentlibrary.service.StudentImportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/import")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')")
 public class CsvImportController {
     private final StudentImportService studentImportService;
     private final BookImportService bookImportService;

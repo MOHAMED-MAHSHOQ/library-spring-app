@@ -10,5 +10,5 @@
     <include file="db/changelog/changes/03-insert-students.xml"/>
     <include file="db/changelog/changes/04-insert-books.xml"/>
     <include file="db/changelog/changes/05-create-app-users-table.xml"/>
-
+    <include file="db/changelog/changes/06-insert-default-admin.xml"/>
 </databaseChangeLog>

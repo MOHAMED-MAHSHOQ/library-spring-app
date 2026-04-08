@@ -1,0 +1,17 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+    <changeSet id="06" author="capestart">
+        <insert tableName="app_users">
+            <column name="email"      value="mahshoq-admin@library.com"/>
+            <column name="password"   value="$2a$10$A0zxMj96SsXbCESM7K0lH.x/iEI2CQ6c8kfZRC.iYo76iE7th84UW"/>
+            <column name="full_name"  value="Library Admin"/>
+            <column name="role"       value="ADMIN"/>
+            <column name="created_at" valueDate="now()"/>
+            <column name="enabled"    valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StudentResponseDto> createStudent(
             @Valid @RequestBody StudentRequestDto requestDto) {
         StudentResponseDto response = studentService.createStudent(requestDto);
@@ -48,6 +50,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StudentResponseDto> updateStudent(
             @PathVariable Long id,
             @Valid @RequestBody StudentRequestDto requestDto) {
@@ -56,12 +59,14 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{studentId}/books/{bookId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StudentResponseDto> assignBookToStudent(
             @PathVariable Long studentId,
             @PathVariable Long bookId) {
@@ -70,6 +75,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{studentId}/books/{bookId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StudentResponseDto> removeBookFromStudent(
             @PathVariable Long studentId,
             @PathVariable Long bookId) {

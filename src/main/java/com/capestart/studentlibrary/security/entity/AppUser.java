@@ -42,7 +42,7 @@ public class AppUser implements UserDetails {
     private boolean enabled;
 
     @PrePersist
-    void onCreate(){
+    void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.enabled = true;
     }
@@ -50,7 +50,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_"+role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
@@ -83,7 +83,4 @@ public class AppUser implements UserDetails {
         return enabled;
     }
 
-    public enum Role {
-        USER, ADMIN
-    }
 }

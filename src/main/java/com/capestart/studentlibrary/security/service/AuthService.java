@@ -5,6 +5,7 @@ import com.capestart.studentlibrary.security.dto.AuthResponse;
 import com.capestart.studentlibrary.security.dto.LoginRequest;
 import com.capestart.studentlibrary.security.dto.RegisterRequest;
 import com.capestart.studentlibrary.security.entity.AppUser;
+import com.capestart.studentlibrary.security.entity.Role;
 import com.capestart.studentlibrary.security.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,11 +35,28 @@ public class AuthService {
                 .fullName(request.getFullName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(AppUser.Role.USER)
+                .role(Role.USER)
                 .build();
 
         appUserRepository.save(user);
 
+        String token = jwtUtil.generateToken(user);
+        return buildResponse(user, token);
+    }
+
+    public AuthResponse registerAdmin(RegisterRequest request) {
+        if (appUserRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException(
+                    "An account with this email already exists");
+        }
+        AppUser user = AppUser.builder()
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.ADMIN)
+                .build();
+
+        appUserRepository.save(user);
         String token = jwtUtil.generateToken(user);
         return buildResponse(user, token);
     }

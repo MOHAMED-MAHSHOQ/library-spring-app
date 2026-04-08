@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,23 +23,19 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BookResponseDto> createBook(
             @Valid @RequestBody BookRequestDto requestDto) {
         BookResponseDto response = bookService.createBook(requestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<BookResponseDto>> getAllBooks() {
-//        List<BookResponseDto> response = bookService.getAllBooks();
-//        return ResponseEntity.ok(response);
-//    }
 
     @GetMapping
     public ResponseEntity<?> getAllBooks(
-            @RequestParam(defaultValue = "0")   int page,
-            @RequestParam(defaultValue = "20")  int size,
-            @RequestParam(defaultValue = "id")  String sortBy,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDir) {
 
         Sort sort = sortDir.equalsIgnoreCase("desc")
@@ -56,6 +53,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BookResponseDto> updateBook(
             @PathVariable Long id,
             @Valid @RequestBody BookRequestDto requestDto) {
@@ -64,6 +62,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
@@ -74,12 +73,13 @@ public class BookController {
         List<BookResponseDto> response = bookService.getUnassignedBooks();
         return ResponseEntity.ok(response);
     }
+
     // ADD THIS NEW SEARCH ENDPOINT
     @GetMapping("/search")
     public ResponseEntity<?> searchBooks(
             @RequestParam String query,
-            @RequestParam(defaultValue = "0")   int page,
-            @RequestParam(defaultValue = "20")  int size) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
         return ResponseEntity.ok(bookService.searchBooks(query, page, size));
     }
 }
